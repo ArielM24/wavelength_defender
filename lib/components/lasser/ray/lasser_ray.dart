@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:wavelength_defender/components/enemy/enemy_component.dart';
 
 class LasserRay extends PositionComponent with CollisionCallbacks, HasGameRef {
-  double speed = 10;
+  double speed = 20;
   double damage;
   late final Vector2 velocity;
   final Vector2 deltaPosition = Vector2.zero();

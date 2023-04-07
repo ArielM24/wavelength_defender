@@ -12,22 +12,27 @@ import 'components/lasser/single_channel_lasser.dart';
 
 class WavelengthGame extends FlameGame with HasCollisionDetection {
   late final SingleChannelLasser lasser1;
-  late final TextComponent scoreText;
+  late final TextComponent scoreText, crashesText;
   late final TimerComponent enemyCreator;
   final Random random = Random();
   List<EnemyComponent> enemies = [];
 
   int score = 0;
+  int crashes = 0;
 
   @override
   FutureOr<void> onLoad() {
     add(lasser1 = SingleChannelLasser());
     addAll([
       FpsTextComponent(
-        position: size - Vector2(0, 50),
+        position: size - Vector2(0, 75),
         anchor: Anchor.bottomRight,
       ),
       scoreText = TextComponent(
+          position: size - Vector2(0, 50),
+          anchor: Anchor.bottomRight,
+          priority: 1),
+      crashesText = TextComponent(
           position: size - Vector2(0, 25),
           anchor: Anchor.bottomRight,
           priority: 1),
@@ -36,8 +41,8 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
         period: 5,
         autoStart: true,
         repeat: true,
-        onTick: () => generateEnemies(random.nextInt(4) + 1)));
-    generateEnemies(random.nextInt(4) + 1);
+        onTick: () => generateEnemies(random.nextInt(4) + 3)));
+    generateEnemies(random.nextInt(4) + 3);
 
     super.onLoad();
   }
@@ -45,6 +50,7 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
   @override
   void update(double dt) {
     scoreText.text = "score $score";
+    crashesText.text = "crashes $crashes";
     if (enemies.isNotEmpty) {
       //debugPrint("not empty");
       lasser1.lookAt(enemies.first.position);
@@ -81,7 +87,8 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
     List<EnemyComponent> newEnemies = [];
     for (int i = 0; i < n; i++) {
       newEnemies.add(EnemyComponent(
-          dx: random.nextDouble() * 100, dy: random.nextDouble() * 100));
+          dx: (random.nextDouble() + 0.5) * 200,
+          dy: (random.nextDouble() + 0.5) * 100));
     }
     enemies.addAll(newEnemies);
     addAll(newEnemies);

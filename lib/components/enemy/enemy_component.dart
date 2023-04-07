@@ -10,9 +10,10 @@ class EnemyComponent extends PositionComponent
   static const speed = 0.5;
   double life;
   double dx, dy;
-  EnemyComponent({this.life = 10, this.dx = 0, this.dy = 0})
+  bool hasCrashed = false;
+  EnemyComponent({this.life = 20, this.dx = 0, this.dy = 0})
       : super(
-            position: Vector2(1400 + dx, 100 + dy),
+            position: Vector2(1200 + dx, 100 + dy),
             size: Vector2.all(50),
             anchor: Anchor.center);
   @override
@@ -32,7 +33,11 @@ class EnemyComponent extends PositionComponent
   void update(double dt) {
     if (position.x > size.x) {
       position.x -= speed;
+    } else if (!hasCrashed) {
+      hasCrashed = true;
+      gameRef.crashes++;
     }
+
     super.update(dt);
   }
 
