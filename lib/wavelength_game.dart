@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:wavelength_defender/components/lasser/circular_lasser.dart';
 import 'package:wavelength_defender/components/lasser/ray/lasser_ray.dart';
+import 'package:wavelength_defender/components/lights/radious_light.dart';
 
 import 'components/enemy/enemy_component.dart';
 import 'components/lasser/single_channel_lasser.dart';
@@ -22,6 +25,7 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
 
   @override
   FutureOr<void> onLoad() {
+    add(CircularLasser());
     add(lasser1 = SingleChannelLasser());
     addAll([
       FpsTextComponent(

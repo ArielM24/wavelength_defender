@@ -13,14 +13,14 @@ class EnemyComponent extends PositionComponent
   bool hasCrashed = false;
   EnemyComponent({this.life = 20, this.dx = 0, this.dy = 0})
       : super(
-            position: Vector2(1200 + dx, 100 + dy),
+            position: Vector2(1200 + dx, 150 + dy),
             size: Vector2.all(50),
             anchor: Anchor.center);
   @override
   FutureOr<void> onLoad() {
     final defaultPaint = Paint()
       ..color = Colors.red
-      ..style = PaintingStyle.fill;
+      ..style = PaintingStyle.stroke;
     add(CircleHitbox()
       ..collisionType = CollisionType.passive
       ..renderShape = true

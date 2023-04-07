@@ -14,7 +14,7 @@ class SingleChannelLasser extends PositionComponent with HasGameRef {
   SingleChannelLasser()
       : super(
             size: Vector2(50, 50),
-            position: Vector2(700, 500),
+            position: Vector2(700, 600),
             anchor: Anchor.center);
 
   @override
