@@ -9,15 +9,17 @@ import 'package:wavelength_defender/wavelength_game.dart';
 class CircularLasser extends PositionComponent
     with HasGameRef<WavelengthGame>, CollisionCallbacks {
   double damage = 0.1;
-  CircularLasser() : super(position: Vector2(300, 200));
+  late CircleHitbox hitbox;
+  final defaultPaint = Paint()
+    ..color = Colors.green.withOpacity(0.5)
+    ..style = PaintingStyle.fill;
+  bool isHitting = false;
+  CircularLasser({super.position});
   @override
   FutureOr<void> onLoad() {
     size = Vector2(200, 200);
-    final defaultPaint = Paint()
-      ..color = Colors.green.withOpacity(0.5)
-      ..style = PaintingStyle.fill;
 
-    add(CircleHitbox()
+    add(hitbox = CircleHitbox()
       ..paint = defaultPaint
       ..renderShape = true);
     super.onLoad();
@@ -26,8 +28,21 @@ class CircularLasser extends PositionComponent
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is EnemyComponent) {
+      isHitting = true;
+      final paint = Paint()
+        ..color = Colors.green.withOpacity(0.8)
+        ..style = PaintingStyle.fill;
+      hitbox.paint = paint;
       other.takeHit(damage);
     }
     super.onCollision(intersectionPoints, other);
+  }
+
+  @override
+  void onCollisionEnd(PositionComponent other) {
+    if (other is EnemyComponent) {
+      hitbox.paint = defaultPaint;
+    }
+    super.onCollisionEnd(other);
   }
 }

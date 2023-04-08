@@ -11,7 +11,7 @@ class EnemyComponent extends PositionComponent
   double life;
   double dx, dy;
   bool hasCrashed = false;
-  EnemyComponent({this.life = 20, this.dx = 0, this.dy = 0})
+  EnemyComponent({this.life = 100, this.dx = 0, this.dy = 0})
       : super(
             position: Vector2(1200 + dx, 150 + dy),
             size: Vector2.all(50),
@@ -21,7 +21,7 @@ class EnemyComponent extends PositionComponent
     final defaultPaint = Paint()
       ..color = Colors.red
       ..style = PaintingStyle.stroke;
-    add(CircleHitbox()
+    add(CircleHitbox(isSolid: true)
       ..collisionType = CollisionType.passive
       ..renderShape = true
       ..paint = defaultPaint);
@@ -36,6 +36,8 @@ class EnemyComponent extends PositionComponent
     } else if (!hasCrashed) {
       hasCrashed = true;
       gameRef.crashes++;
+      removeFromParent();
+      gameRef.enemies.remove(this);
     }
 
     super.update(dt);

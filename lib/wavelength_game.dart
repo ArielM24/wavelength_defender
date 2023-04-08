@@ -7,6 +7,7 @@ import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:wavelength_defender/components/lasser/circular_lasser.dart';
+import 'package:wavelength_defender/components/lasser/continuous_lasser.dart';
 import 'package:wavelength_defender/components/lasser/ray/lasser_ray.dart';
 import 'package:wavelength_defender/components/lights/radious_light.dart';
 
@@ -14,7 +15,6 @@ import 'components/enemy/enemy_component.dart';
 import 'components/lasser/single_channel_lasser.dart';
 
 class WavelengthGame extends FlameGame with HasCollisionDetection {
-  late final SingleChannelLasser lasser1;
   late final TextComponent scoreText, crashesText;
   late final TimerComponent enemyCreator;
   final Random random = Random();
@@ -25,8 +25,12 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
 
   @override
   FutureOr<void> onLoad() {
-    add(CircularLasser());
-    add(lasser1 = SingleChannelLasser());
+    add(ContinuousLasser(position: Vector2(800, 150)));
+    add(ContinuousLasser(position: Vector2(900, 450)));
+    add(CircularLasser(position: Vector2(300, 200)));
+    add(CircularLasser(position: Vector2(1000, 200)));
+    add(SingleChannelLasser(position: Vector2(400, 500)));
+    add(SingleChannelLasser(position: Vector2(1100, 500)));
     addAll([
       FpsTextComponent(
         position: size - Vector2(0, 75),
@@ -55,28 +59,8 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
   void update(double dt) {
     scoreText.text = "score $score";
     crashesText.text = "crashes $crashes";
-    if (enemies.isNotEmpty) {
-      //debugPrint("not empty");
-      lasser1.lookAt(enemies.first.position);
-      // lasser1.add(RotateEffect.to(
-      //     lasser1.angleTo(enemies.first.absolutePosition),
-      //     LinearEffectController(1)));
-      //deleteUnmountedEnemies();
-    }
 
-    if (enemies.isEmpty && lasser1.isShooting) {
-      //debugPrint("stop");
-
-      lasser1.stopShootingLasser();
-    } else if (enemies.isNotEmpty && !lasser1.isShooting) {
-      //debugPrint("start");
-      lasser1.startShootingLasser();
-      lasser1.add(RotateEffect.to(
-        lasser1.angleTo(enemies.first.absolutePosition),
-        LinearEffectController(1),
-      ));
-    }
-    if (score > 20) {
+    if (score > 50 || crashes > 10) {
       enemyCreator.timer.stop();
     }
     super.update(dt);

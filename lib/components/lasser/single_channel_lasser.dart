@@ -6,16 +6,15 @@ import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
 import 'package:wavelength_defender/components/enemy/enemy_component.dart';
 import 'package:wavelength_defender/components/lasser/ray/lasser_ray.dart';
+import 'package:wavelength_defender/wavelength_game.dart';
 
-class SingleChannelLasser extends PositionComponent with HasGameRef {
+class SingleChannelLasser extends PositionComponent
+    with HasGameRef<WavelengthGame> {
   late TimerComponent lasserCreator;
   bool isShooting = false;
   int shoots = 0;
-  SingleChannelLasser()
-      : super(
-            size: Vector2(50, 50),
-            position: Vector2(700, 600),
-            anchor: Anchor.center);
+  SingleChannelLasser({super.position})
+      : super(size: Vector2(50, 50), anchor: Anchor.center);
 
   @override
   FutureOr<void> onLoad() {
@@ -56,9 +55,19 @@ class SingleChannelLasser extends PositionComponent with HasGameRef {
 
   @override
   void update(double dt) {
+    if (gameRef.enemies.isNotEmpty) {
+      lookAt(gameRef.enemies.first.position);
+    }
+
+    if (gameRef.enemies.isEmpty && isShooting) {
+      stopShootingLasser();
+    } else if (gameRef.enemies.isNotEmpty && !isShooting) {
+      startShootingLasser();
+      add(RotateEffect.to(
+        angleTo(gameRef.enemies.first.absolutePosition),
+        LinearEffectController(1),
+      ));
+    }
     super.update(dt);
-    // if (shoots > 5) {
-    //   stopShootingLasser();
-    // }
   }
 }
