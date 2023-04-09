@@ -1,17 +1,13 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
-import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:wavelength_defender/components/enemy/enemy_component.dart';
 import 'package:wavelength_defender/wavelength_game.dart';
 
 class StaticLasserRay extends PositionComponent
     with HasGameRef<WavelengthGame>, CollisionCallbacks {
-  Vector2 origin, parentSize;
   double maxDistance = 400;
   double damage = 0.1;
   late RectangleHitbox hitbox;
@@ -19,7 +15,7 @@ class StaticLasserRay extends PositionComponent
   final defualtPaint = Paint()
     ..color = Colors.yellow
     ..style = PaintingStyle.fill;
-  StaticLasserRay({required this.origin, required this.parentSize})
+  StaticLasserRay({required super.position})
       : super(anchor: Anchor.bottomCenter);
 
   @override
@@ -28,8 +24,6 @@ class StaticLasserRay extends PositionComponent
       ..renderShape = true
       ..collisionType = CollisionType.active
       ..paint = defualtPaint);
-    final offset = Offset(parentSize.x / 2, parentSize.y / 2);
-    position += offset.toVector2();
     size.x = 5;
     super.onLoad();
   }
@@ -38,7 +32,7 @@ class StaticLasserRay extends PositionComponent
   void update(double dt) {
     if (gameRef.enemies.isNotEmpty) {
       final target = gameRef.enemies.first;
-      double yDistance = origin.distanceTo(target.position);
+      double yDistance = position.distanceTo(target.position);
       if (yDistance <= maxDistance) {
         size.y = yDistance;
       } else {

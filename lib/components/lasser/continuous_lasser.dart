@@ -8,7 +8,7 @@ import 'package:wavelength_defender/components/lasser/ray/static_lasser_ray.dart
 import 'package:wavelength_defender/wavelength_game.dart';
 
 class ContinuousLasser extends PositionComponent
-    with HasGameRef<WavelengthGame>, CollisionCallbacks {
+    with HasGameRef<WavelengthGame> {
   bool isShooting = false;
   late StaticLasserRay ray;
   ContinuousLasser({super.position})
@@ -28,11 +28,11 @@ class ContinuousLasser extends PositionComponent
   void update(double dt) {
     if (gameRef.enemies.isNotEmpty && !isShooting) {
       isShooting = true;
-      ray = StaticLasserRay(origin: position, parentSize: size);
-      add(ray);
+      ray = StaticLasserRay(position: position);
+      gameRef.add(ray);
     } else if (gameRef.enemies.isEmpty && isShooting) {
       isShooting = false;
-      remove(ray);
+      gameRef.remove(ray);
     }
     super.update(dt);
   }
