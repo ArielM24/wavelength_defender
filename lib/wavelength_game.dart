@@ -1,21 +1,15 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:wavelength_defender/components/lasser/circular_lasser.dart';
-import 'package:wavelength_defender/components/lasser/continuous_lasser.dart';
-import 'package:wavelength_defender/components/lasser/double_channel_lasser.dart';
-import 'package:wavelength_defender/components/lasser/lasser_gun.dart';
-import 'package:wavelength_defender/components/lasser/ray/lasser_ray.dart';
-import 'package:wavelength_defender/components/lights/radious_light.dart';
+import 'package:wavelength_defender/components/lassers/guns/double_channel_lasser.dart';
+import 'package:wavelength_defender/components/lassers/pointers/double_lasser_pointer.dart';
 
 import 'components/enemy/enemy_component.dart';
-import 'components/lasser/single_channel_lasser.dart';
-import 'components/lasser/triple_shoot_lasser.dart';
+import 'components/lassers/guns/single_channel_lasser.dart';
+import 'components/lassers/guns/triple_shoot_lasser.dart';
 
 class WavelengthGame extends FlameGame with HasCollisionDetection {
   late final TextComponent scoreText, crashesText;
@@ -28,7 +22,9 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
 
   @override
   FutureOr<void> onLoad() {
-    // add(ContinuousLasser(position: Vector2(800, 150)));
+    add(DoublePointerLasser(
+        size: Vector2.all(50), position: Vector2(800, 150)));
+    //add(ContinuousLasser(position: Vector2(800, 150)));
     // add(ContinuousLasser(position: Vector2(900, 450)));
     // add(CircularLasser(position: Vector2(300, 200)));
     // add(CircularLasser(position: Vector2(1000, 200)));
@@ -64,8 +60,8 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
         period: 5,
         autoStart: true,
         repeat: true,
-        onTick: () => generateEnemies(random.nextInt(4) + 3)));
-    generateEnemies(random.nextInt(4) + 3);
+        onTick: () => generateEnemies(random.nextInt(6) + 6)));
+    generateEnemies(random.nextInt(6) + 6);
 
     super.onLoad();
   }

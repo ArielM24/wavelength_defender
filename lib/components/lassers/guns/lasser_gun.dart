@@ -22,9 +22,6 @@ abstract class LasserGun extends PositionComponent
   FutureOr<void> onLoad() {
     shape.paint = Paint()..color = color;
     shape.size = size;
-    // if(shape is PolygonComponent){
-    //   shape.p
-    // }
     add(shape);
     add(lasserCreator = TimerComponent(
         period: 1, repeat: true, autoStart: false, onTick: shootLasser));
@@ -48,7 +45,6 @@ abstract class LasserGun extends PositionComponent
     if (gameRef.enemies.isNotEmpty) {
       lookAt(gameRef.enemies.first.position);
     }
-
     if (gameRef.enemies.isEmpty && isShooting) {
       stopShootingLasser();
     } else if (gameRef.enemies.isNotEmpty && !isShooting) {

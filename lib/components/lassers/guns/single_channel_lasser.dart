@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
-import 'package:wavelength_defender/components/lasser/lasser_gun.dart';
-import 'package:wavelength_defender/components/lasser/ray/lasser_ray.dart';
+import 'package:wavelength_defender/components/lassers/rays/lasser_ray.dart';
+
+import 'lasser_gun.dart';
 
 class SingleChannelLasser extends LasserGun {
   SingleChannelLasser(

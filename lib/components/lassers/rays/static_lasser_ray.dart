@@ -12,10 +12,11 @@ class StaticLasserRay extends PositionComponent
   double damage = 0.1;
   late RectangleHitbox hitbox;
   bool printed = false;
+  int targetIndex;
   final defualtPaint = Paint()
     ..color = Colors.yellow
     ..style = PaintingStyle.fill;
-  StaticLasserRay({required super.position})
+  StaticLasserRay({required super.position, this.targetIndex = 0})
       : super(anchor: Anchor.bottomCenter);
 
   @override
@@ -31,7 +32,8 @@ class StaticLasserRay extends PositionComponent
   @override
   void update(double dt) {
     if (gameRef.enemies.isNotEmpty) {
-      final target = gameRef.enemies.first;
+      bool useIndex = gameRef.enemies.length > targetIndex;
+      final target = gameRef.enemies[useIndex ? targetIndex : 0];
       double yDistance = position.distanceTo(target.position);
       if (yDistance <= maxDistance) {
         size.y = yDistance;
