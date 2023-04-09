@@ -12,9 +12,7 @@ class SingleLasserPoint extends PositionComponent
   late StaticLasserRay ray;
   double maxDistance = 400;
 
-  int targetIndex;
-  SingleLasserPoint(
-      {required super.position, required super.size, this.targetIndex = 1})
+  SingleLasserPoint({required super.position, required super.size})
       : super(anchor: Anchor.center);
 
   @override
@@ -24,8 +22,7 @@ class SingleLasserPoint extends PositionComponent
       ..style = PaintingStyle.fill;
     add(CircleComponent(paint: defaultPaint, radius: size.x / 2)
       ..renderShape = true);
-    gameRef.add(
-        ray = StaticLasserRay(position: position, targetIndex: targetIndex));
+    gameRef.add(ray = StaticLasserRay(position: position));
 
     super.onLoad();
   }
@@ -59,14 +56,6 @@ class SingleLasserPoint extends PositionComponent
     } else {
       ray.size.y = 0;
     }
-    // if (gameRef.enemies.isNotEmpty && !isShooting) {
-    //   isShooting = true;
-    //   ray = StaticLasserRay(position: position, targetIndex: targetIndex);
-    //   gameRef.add(ray);
-    // } else if (gameRef.enemies.isEmpty && isShooting) {
-    //   isShooting = false;
-    //   gameRef.remove(ray);
-    // }
     super.update(dt);
   }
 }
