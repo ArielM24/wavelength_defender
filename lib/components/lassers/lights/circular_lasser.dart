@@ -14,11 +14,9 @@ class CircularLasser extends PositionComponent
     ..color = Colors.green.withOpacity(0.5)
     ..style = PaintingStyle.fill;
   bool isHitting = false;
-  CircularLasser({super.position});
+  CircularLasser({required super.position, required super.size});
   @override
   FutureOr<void> onLoad() {
-    size = Vector2(200, 200);
-
     add(hitbox = CircleHitbox()
       ..paint = defaultPaint
       ..renderShape = true);
