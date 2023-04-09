@@ -10,9 +10,12 @@ class TriplePointerLasser extends PositionComponent
       : super(anchor: Anchor.center);
   @override
   FutureOr<void> onLoad() {
-    gameRef.add(SingleLasserPoint(targetIndex: 0, position: position));
-    gameRef.add(SingleLasserPoint(targetIndex: 1, position: position));
-    gameRef.add(SingleLasserPoint(targetIndex: 3, position: position));
+    gameRef
+        .add(SingleLasserPoint(targetIndex: 0, position: position, size: size));
+    gameRef
+        .add(SingleLasserPoint(targetIndex: 1, position: position, size: size));
+    gameRef
+        .add(SingleLasserPoint(targetIndex: 3, position: position, size: size));
     super.onLoad();
   }
 }

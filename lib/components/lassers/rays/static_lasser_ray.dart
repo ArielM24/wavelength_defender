@@ -13,6 +13,7 @@ class StaticLasserRay extends PositionComponent
   late RectangleHitbox hitbox;
   bool printed = false;
   int targetIndex;
+  //Vector2 target;
   final defualtPaint = Paint()
     ..color = Colors.yellow
     ..style = PaintingStyle.fill;
@@ -31,17 +32,20 @@ class StaticLasserRay extends PositionComponent
 
   @override
   void update(double dt) {
-    if (gameRef.enemies.isNotEmpty) {
-      bool useIndex = gameRef.enemies.length > targetIndex;
-      final target = gameRef.enemies[useIndex ? targetIndex : 0];
-      double yDistance = position.distanceTo(target.position);
-      if (yDistance <= maxDistance) {
-        size.y = yDistance;
-      } else {
-        size.y = 0;
-      }
-      lookAt(target.position);
-    }
+    // double yDistance = position.distanceTo(target);
+    // size.y = yDistance;
+    // lookAt(target);
+    // if (gameRef.enemies.isNotEmpty) {
+    //   bool useIndex = gameRef.enemies.length > targetIndex;
+    //   final target = gameRef.enemies[useIndex ? targetIndex : 0];
+    //   double yDistance = position.distanceTo(target.position);
+    //   if (yDistance <= maxDistance) {
+    //     size.y = yDistance;
+    //   } else {
+    //     size.y = 0;
+    //   }
+    //   lookAt(target.position);
+    // }
     super.update(dt);
   }
 

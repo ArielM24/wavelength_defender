@@ -6,6 +6,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:wavelength_defender/components/lassers/guns/double_channel_lasser.dart';
 import 'package:wavelength_defender/components/lassers/pointers/double_lasser_pointer.dart';
+import 'package:wavelength_defender/components/lassers/pointers/single_lasser_point.dart';
 
 import 'components/enemy/enemy_component.dart';
 import 'components/lassers/guns/single_channel_lasser.dart';
@@ -22,18 +23,17 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
 
   @override
   FutureOr<void> onLoad() {
-    add(DoublePointerLasser(
-        size: Vector2.all(50), position: Vector2(800, 150)));
-    add(SingleChannelLasser(
-        position: Vector2(400, 500),
-        size: Vector2.all(50),
-        color: Colors.cyan));
-    add(DoubleChannelLasser(
-        position: Vector2(600, 500),
-        size: Vector2.all(50),
-        color: Colors.yellow));
-    add(TripleShootLasser(
-        position: Vector2(800, 500), size: Vector2.all(50), color: Colors.red));
+    add(SingleLasserPoint(size: Vector2.all(50), position: Vector2(800, 150)));
+    // add(SingleChannelLasser(
+    //     position: Vector2(400, 500),
+    //     size: Vector2.all(50),
+    //     color: Colors.cyan));
+    // add(DoubleChannelLasser(
+    //     position: Vector2(600, 500),
+    //     size: Vector2.all(50),
+    //     color: Colors.yellow));
+    // add(TripleShootLasser(
+    //     position: Vector2(800, 500), size: Vector2.all(50), color: Colors.red));
 
     addAll([
       FpsTextComponent(

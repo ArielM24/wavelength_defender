@@ -8,7 +8,7 @@ import 'package:wavelength_defender/wavelength_game.dart';
 
 class EnemyComponent extends PositionComponent
     with HasGameRef<WavelengthGame>, CollisionCallbacks {
-  static const speed = 1.5;
+  static const speed = 0.5;
   double life;
   double dx, dy;
   bool hasCrashed = false;
