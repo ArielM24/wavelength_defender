@@ -8,11 +8,14 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:wavelength_defender/components/lasser/circular_lasser.dart';
 import 'package:wavelength_defender/components/lasser/continuous_lasser.dart';
+import 'package:wavelength_defender/components/lasser/double_channel_lasser.dart';
+import 'package:wavelength_defender/components/lasser/lasser_gun.dart';
 import 'package:wavelength_defender/components/lasser/ray/lasser_ray.dart';
 import 'package:wavelength_defender/components/lights/radious_light.dart';
 
 import 'components/enemy/enemy_component.dart';
 import 'components/lasser/single_channel_lasser.dart';
+import 'components/lasser/triple_shoot_lasser.dart';
 
 class WavelengthGame extends FlameGame with HasCollisionDetection {
   late final TextComponent scoreText, crashesText;
@@ -25,12 +28,24 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
 
   @override
   FutureOr<void> onLoad() {
-    add(ContinuousLasser(position: Vector2(800, 150)));
-    add(ContinuousLasser(position: Vector2(900, 450)));
-    add(CircularLasser(position: Vector2(300, 200)));
-    add(CircularLasser(position: Vector2(1000, 200)));
-    add(SingleChannelLasser(position: Vector2(400, 500)));
-    add(SingleChannelLasser(position: Vector2(1100, 500)));
+    // add(ContinuousLasser(position: Vector2(800, 150)));
+    // add(ContinuousLasser(position: Vector2(900, 450)));
+    // add(CircularLasser(position: Vector2(300, 200)));
+    // add(CircularLasser(position: Vector2(1000, 200)));
+    add(SingleChannelLasser(
+        position: Vector2(400, 500),
+        size: Vector2.all(50),
+        color: Colors.cyan));
+    add(DoubleChannelLasser(
+        position: Vector2(600, 500),
+        size: Vector2.all(50),
+        color: Colors.yellow));
+    add(TripleShootLasser(
+        position: Vector2(800, 500), size: Vector2.all(50), color: Colors.red));
+    // add(SingleChannelLasser(position: Vector2(1100, 500)));
+    //add(DubleChannelLasser(position: Vector2(1000, 50)));
+    // add(TripleShootLasser(position: Vector2(800, 50)));
+
     addAll([
       FpsTextComponent(
         position: size - Vector2(0, 75),

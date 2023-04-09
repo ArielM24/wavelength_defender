@@ -9,14 +9,19 @@ class LasserRay extends PositionComponent with CollisionCallbacks, HasGameRef {
   double speed = 10;
   double damage;
   late final Vector2 velocity;
+  Color color;
   final Vector2 deltaPosition = Vector2.zero();
-  LasserRay({required super.position, required super.angle, this.damage = 10})
-      : super(size: Vector2(5, 60));
+  LasserRay(
+      {required super.position,
+      required super.angle,
+      this.damage = 10,
+      required this.color})
+      : super(size: Vector2(5, 60), anchor: Anchor.center);
 
   @override
   FutureOr<void> onLoad() {
     final defaulPaint = Paint()
-      ..color = Colors.cyan
+      ..color = color
       ..style = PaintingStyle.fill;
     add(RectangleHitbox()
       ..paint = defaulPaint
