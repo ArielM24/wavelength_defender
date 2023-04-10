@@ -39,6 +39,12 @@ class SingleLasserPoint extends PositionComponent
       case EnemyChooserType.farest:
         target = gameRef.enemies.farestTo(position, maxDistance: maxDistance);
         break;
+      case EnemyChooserType.first:
+        target = gameRef.enemies.firstIn(position, maxDistance: maxDistance);
+        break;
+      case EnemyChooserType.last:
+        target = gameRef.enemies.lastIn(position, maxDistance: maxDistance);
+        break;
       default:
     }
 

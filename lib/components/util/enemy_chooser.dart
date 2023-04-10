@@ -45,4 +45,42 @@ extension EnemyChooser on List<EnemyComponent> {
 
     return farest;
   }
+
+  Vector2? firstIn(Vector2 position, {double? maxDistance}) {
+    Vector2? firstEnemy;
+    if (isEmpty) {
+      return firstEnemy;
+    }
+    for (int i = 0; i < length; i++) {
+      double aux = position.distanceTo(this[i].position);
+      if (maxDistance == null) {
+        firstEnemy = this[i].position;
+        return firstEnemy;
+      }
+      if (aux < maxDistance) {
+        firstEnemy = this[i].position;
+        return firstEnemy;
+      }
+    }
+    return firstEnemy;
+  }
+
+  Vector2? lastIn(Vector2 position, {double? maxDistance}) {
+    Vector2? lastEnemy;
+    if (isEmpty) {
+      return lastEnemy;
+    }
+    for (int i = length - 1; i > 0; i--) {
+      double aux = position.distanceTo(this[i].position);
+      if (maxDistance == null) {
+        lastEnemy = this[i].position;
+        return lastEnemy;
+      }
+      if (aux < maxDistance) {
+        lastEnemy = this[i].position;
+        return lastEnemy;
+      }
+    }
+    return lastEnemy;
+  }
 }
