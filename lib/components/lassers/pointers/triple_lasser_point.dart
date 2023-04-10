@@ -17,8 +17,8 @@ class TriplePointerLasser extends PositionComponent
         position: position, size: size, chooserType: EnemyChooserType.farest));
     gameRef.add(SingleLasserPoint(
         position: position, size: size, chooserType: EnemyChooserType.first));
-    gameRef.add(SingleLasserPoint(
-        position: position, size: size, chooserType: EnemyChooserType.last));
+    // gameRef.add(SingleLasserPoint(
+    //     position: position, size: size, chooserType: EnemyChooserType.last));
     //gameRef.add(SingleLasserPoint(position: position, size: size));
     super.onLoad();
   }

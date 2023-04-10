@@ -4,11 +4,12 @@ import 'lasser_gun.dart';
 import '../rays/lasser_ray.dart';
 
 class TripleShootLasser extends LasserGun {
-  TripleShootLasser({
-    required super.position,
-    required super.size,
-    required super.color,
-  }) : super(shape: RectangleComponent());
+  TripleShootLasser(
+      {required super.position,
+      required super.size,
+      required super.color,
+      required super.chooserType})
+      : super(shape: RectangleComponent());
 
   @override
   void shootLasser() {

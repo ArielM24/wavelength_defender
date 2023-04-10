@@ -5,6 +5,7 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:wavelength_defender/components/lassers/guns/double_channel_lasser.dart';
+import 'package:wavelength_defender/components/lassers/lights/circular_lasser.dart';
 import 'package:wavelength_defender/components/lassers/pointers/double_lasser_pointer.dart';
 import 'package:wavelength_defender/components/lassers/pointers/single_lasser_point.dart';
 import 'package:wavelength_defender/components/lassers/pointers/triple_lasser_point.dart';
@@ -27,24 +28,28 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
   FutureOr<void> onLoad() {
     add(SingleLasserPoint(
         size: Vector2.all(50),
-        position: Vector2(800, 150),
-        chooserType: EnemyChooserType.higher));
-    // add(TriplePointerLasser(
-    //   size: Vector2.all(50),
-    //   position: Vector2(800, 150),
-    // ));
-    // add(SingleChannelLasser(
-    //     position: Vector2(400, 500),
-    //     size: Vector2.all(50),
-    //     color: Colors.cyan));
-    // add(DoublePointerLasser(
-    //     size: Vector2(50, 50), position: Vector2(800, 150)));
-    // add(DoubleChannelLasser(
-    //     position: Vector2(600, 500),
-    //     size: Vector2.all(50),
-    //     color: Colors.yellow));
-    // add(TripleShootLasser(
-    //     position: Vector2(800, 500), size: Vector2.all(50), color: Colors.red));
+        position: Vector2(500, 150),
+        chooserType: EnemyChooserType.farest));
+    add(TriplePointerLasser(
+      size: Vector2.all(50),
+      position: Vector2(800, 150),
+    ));
+    add(SingleChannelLasser(
+        position: Vector2(400, 500),
+        size: Vector2.all(50),
+        color: Colors.cyan,
+        chooserType: EnemyChooserType.first));
+    add(DoubleChannelLasser(
+        position: Vector2(600, 500),
+        size: Vector2.all(50),
+        color: Colors.orange,
+        chooserType: EnemyChooserType.nearest));
+    add(TripleShootLasser(
+        position: Vector2(800, 500),
+        size: Vector2.all(50),
+        color: Colors.red,
+        chooserType: EnemyChooserType.lowest));
+    add(CircularLasser(position: Vector2(1100, 250), size: Vector2.all(100)));
 
     addAll([
       FpsTextComponent(
@@ -60,11 +65,11 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
           anchor: Anchor.bottomRight,
           priority: 1),
     ]);
-    // add(enemyCreator = TimerComponent(
-    //     period: 5,
-    //     autoStart: true,
-    //     repeat: true,
-    //     onTick: () => generateEnemies(random.nextInt(6) + 6)));
+    add(enemyCreator = TimerComponent(
+        period: 5,
+        autoStart: true,
+        repeat: true,
+        onTick: () => generateEnemies(random.nextInt(6) + 6)));
     generateEnemies(random.nextInt(6) + 6);
 
     super.onLoad();

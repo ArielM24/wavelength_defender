@@ -5,7 +5,10 @@ import 'lasser_gun.dart';
 
 class SingleChannelLasser extends LasserGun {
   SingleChannelLasser(
-      {super.position, required super.size, required super.color})
+      {super.position,
+      required super.size,
+      required super.color,
+      required super.chooserType})
       : super(
             shape: PolygonComponent.relative([
           Vector2(0, -1),

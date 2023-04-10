@@ -29,8 +29,7 @@ class SingleLasserPoint extends PositionComponent
     super.onLoad();
   }
 
-  @override
-  void update(double dt) {
+  getTarget() {
     Vector2? target;
     switch (chooserType) {
       case EnemyChooserType.nearest:
@@ -53,7 +52,12 @@ class SingleLasserPoint extends PositionComponent
         break;
       default:
     }
+    return target;
+  }
 
+  @override
+  void update(double dt) {
+    final target = getTarget();
     if (target != null) {
       double yDistance = position.distanceTo(target);
       ray.size.y = yDistance;

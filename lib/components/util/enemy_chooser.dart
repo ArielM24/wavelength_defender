@@ -28,7 +28,7 @@ extension EnemyChooser on List<EnemyComponent> {
     return null;
   }
 
-  Vector2? farestTo(Vector2 position, {required double maxDistance}) {
+  Vector2? farestTo(Vector2 position, {double? maxDistance}) {
     Vector2? farest;
     if (isEmpty) {
       return farest;
@@ -37,7 +37,7 @@ extension EnemyChooser on List<EnemyComponent> {
 
     for (int i = 0; i < length; i++) {
       double aux = position.distanceTo(this[i].position);
-      if (aux > farestDistance && aux < maxDistance) {
+      if (aux > farestDistance && aux < (maxDistance ?? double.infinity)) {
         farestDistance = aux;
         farest = this[i].position;
       }
@@ -98,7 +98,7 @@ extension EnemyChooser on List<EnemyComponent> {
         lowestLifeValue = auxLife;
         continue;
       }
-      if (aux < maxDistance! && auxLife < lowestLifeValue) {
+      if (aux < (maxDistance ?? double.infinity) && auxLife < lowestLifeValue) {
         lowest = this[i].position;
         lowestLifeValue = auxLife;
       }
@@ -120,7 +120,8 @@ extension EnemyChooser on List<EnemyComponent> {
         highestLifeValue = auxLife;
         continue;
       }
-      if (aux < maxDistance! && auxLife > highestLifeValue) {
+      if (aux < (maxDistance ?? double.infinity) &&
+          auxLife > highestLifeValue) {
         higher = this[i].position;
         highestLifeValue = auxLife;
       }
