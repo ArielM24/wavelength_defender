@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:wavelength_defender/components/enemy/enemy_component.dart';
 
-enum EnemyChooserType { nearest, farest, first, last }
+enum EnemyChooserType { nearest, farest, first, last, lowest, higher }
 
 extension EnemyChooser on List<EnemyComponent> {
   Vector2? nearestTo(Vector2 position, {double? maxDistance}) {
@@ -82,5 +82,49 @@ extension EnemyChooser on List<EnemyComponent> {
       }
     }
     return lastEnemy;
+  }
+
+  Vector2? lowestLife(Vector2 position, {double? maxDistance}) {
+    Vector2? lowest;
+    if (isEmpty) {
+      return lowest;
+    }
+    double lowestLifeValue = double.infinity;
+    for (int i = 0; i < length; i++) {
+      double aux = position.distanceTo(this[i].position);
+      double auxLife = this[i].life;
+      if (maxDistance == null && auxLife < lowestLifeValue) {
+        lowest = this[i].position;
+        lowestLifeValue = auxLife;
+        continue;
+      }
+      if (aux < maxDistance! && auxLife < lowestLifeValue) {
+        lowest = this[i].position;
+        lowestLifeValue = auxLife;
+      }
+    }
+    return lowest;
+  }
+
+  Vector2? higherLife(Vector2 position, {double? maxDistance}) {
+    Vector2? higher;
+    if (isEmpty) {
+      return higher;
+    }
+    double highestLifeValue = 0;
+    for (int i = 0; i < length; i++) {
+      double aux = position.distanceTo(this[i].position);
+      double auxLife = this[i].life;
+      if (maxDistance == null && auxLife > highestLifeValue) {
+        higher = this[i].position;
+        highestLifeValue = auxLife;
+        continue;
+      }
+      if (aux < maxDistance! && auxLife > highestLifeValue) {
+        higher = this[i].position;
+        highestLifeValue = auxLife;
+      }
+    }
+    return higher;
   }
 }

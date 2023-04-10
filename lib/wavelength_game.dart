@@ -25,14 +25,14 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
 
   @override
   FutureOr<void> onLoad() {
-    // add(SingleLasserPoint(
-    //     size: Vector2.all(50),
-    //     position: Vector2(800, 150),
-    //     chooserType: EnemyChooserType.last));
-    add(TriplePointerLasser(
-      size: Vector2.all(50),
-      position: Vector2(800, 150),
-    ));
+    add(SingleLasserPoint(
+        size: Vector2.all(50),
+        position: Vector2(800, 150),
+        chooserType: EnemyChooserType.higher));
+    // add(TriplePointerLasser(
+    //   size: Vector2.all(50),
+    //   position: Vector2(800, 150),
+    // ));
     // add(SingleChannelLasser(
     //     position: Vector2(400, 500),
     //     size: Vector2.all(50),
@@ -60,11 +60,11 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
           anchor: Anchor.bottomRight,
           priority: 1),
     ]);
-    add(enemyCreator = TimerComponent(
-        period: 5,
-        autoStart: true,
-        repeat: true,
-        onTick: () => generateEnemies(random.nextInt(6) + 6)));
+    // add(enemyCreator = TimerComponent(
+    //     period: 5,
+    //     autoStart: true,
+    //     repeat: true,
+    //     onTick: () => generateEnemies(random.nextInt(6) + 6)));
     generateEnemies(random.nextInt(6) + 6);
 
     super.onLoad();
