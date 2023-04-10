@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:wavelength_defender/components/lassers/rays/static_lasser_ray.dart';
-import 'package:wavelength_defender/components/util/distance_util.dart';
+import 'package:wavelength_defender/components/util/enemy_chooser.dart';
 import 'package:wavelength_defender/wavelength_game.dart';
 
 class SingleLasserPoint extends PositionComponent
@@ -11,8 +11,10 @@ class SingleLasserPoint extends PositionComponent
   bool isShooting = false;
   late StaticLasserRay ray;
   double maxDistance = 400;
+  EnemyChooserType chooserType;
 
-  SingleLasserPoint({required super.position, required super.size})
+  SingleLasserPoint(
+      {required super.position, required super.size, required this.chooserType})
       : super(anchor: Anchor.center);
 
   @override
@@ -27,28 +29,19 @@ class SingleLasserPoint extends PositionComponent
     super.onLoad();
   }
 
-  Vector2? chooseTarget() {
-    if (gameRef.enemies.isNotEmpty) {
-      Vector2 target = gameRef.enemies.first.position;
-      double minDistance = position.distanceTo(target);
-      for (int i = 1; i < gameRef.enemies.length; i++) {
-        double aux = position.distanceTo(gameRef.enemies[i].position);
-        if (aux < minDistance) {
-          minDistance = aux;
-          target = gameRef.enemies[i].position;
-        }
-      }
-      if (minDistance < maxDistance) {
-        return target;
-      }
-    }
-    return null;
-  }
-
   @override
   void update(double dt) {
-    Vector2? target =
-        gameRef.enemies.nearestTo(position, maxDistance: maxDistance);
+    Vector2? target;
+    switch (chooserType) {
+      case EnemyChooserType.nearest:
+        target = gameRef.enemies.nearestTo(position, maxDistance: maxDistance);
+        break;
+      case EnemyChooserType.farest:
+        target = gameRef.enemies.farestTo(position, maxDistance: maxDistance);
+        break;
+      default:
+    }
+
     if (target != null) {
       double yDistance = position.distanceTo(target);
       ray.size.y = yDistance;

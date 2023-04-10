@@ -23,11 +23,13 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
 
   @override
   FutureOr<void> onLoad() {
-    add(SingleLasserPoint(size: Vector2.all(50), position: Vector2(800, 150)));
+    //add(SingleLasserPoint(size: Vector2.all(50), position: Vector2(800, 150)));
     // add(SingleChannelLasser(
     //     position: Vector2(400, 500),
     //     size: Vector2.all(50),
     //     color: Colors.cyan));
+    add(DoublePointerLasser(
+        size: Vector2(50, 50), position: Vector2(800, 150)));
     // add(DoubleChannelLasser(
     //     position: Vector2(600, 500),
     //     size: Vector2.all(50),
