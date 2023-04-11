@@ -15,7 +15,10 @@ class DoublePointerLasser extends PositionComponent
   @override
   FutureOr<void> onLoad() {
     gameRef.add(SingleLasserPoint(position: position, size: size, data: data));
-    gameRef.add(SingleLasserPoint(position: position, size: size, data: data));
+    gameRef.add(SingleLasserPoint(
+        position: position,
+        size: size,
+        data: data.copyWith(chooserType: data.chooserType2)));
     super.onLoad();
   }
 }

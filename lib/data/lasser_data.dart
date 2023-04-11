@@ -10,6 +10,8 @@ class LasserData {
   LasserClass lasserClass;
   double fireRate;
   EnemyChooserType chooserType;
+  EnemyChooserType? chooserType2;
+  EnemyChooserType? chooserType3;
   LasserLensData? lensDataR;
   LasserLensData? lensDataG;
   LasserLensData? lensDataB;
@@ -27,8 +29,39 @@ class LasserData {
       this.multiplier = 1,
       this.maxDistance = 300,
       this.baseProjectileSpeed = 10,
+      this.chooserType2,
+      this.chooserType3,
+      int? useDamageLimit,
       this.chooserType = EnemyChooserType.nearest})
-      : damageLimit = lasserClass.randomValue;
+      : damageLimit = useDamageLimit ?? lasserClass.randomValue;
+
+  LasserData copyWith(
+      {LasserClass? lasserClass,
+      double? fireRate,
+      EnemyChooserType? chooserType,
+      EnemyChooserType? chooserType2,
+      EnemyChooserType? chooserType3,
+      LasserLensData? lensDataR,
+      LasserLensData? lensDataG,
+      LasserLensData? lensDataB,
+      int? damageLimit,
+      double? baseProjectileSpeed,
+      double? maxDistance,
+      double? multiplier}) {
+    return LasserData(
+        lasserClass: lasserClass ?? this.lasserClass,
+        useDamageLimit: lasserClass == this.lasserClass ? damageLimit : null,
+        fireRate: fireRate ?? this.fireRate,
+        chooserType: chooserType ?? this.chooserType,
+        chooserType2: chooserType2 ?? this.chooserType2,
+        chooserType3: chooserType3 ?? this.chooserType3,
+        lensDataR: lensDataR ?? this.lensDataR,
+        lensDataG: lensDataG ?? this.lensDataG,
+        lensDataB: lensDataB ?? this.lensDataB,
+        baseProjectileSpeed: baseProjectileSpeed ?? this.baseProjectileSpeed,
+        maxDistance: maxDistance ?? this.maxDistance,
+        multiplier: multiplier ?? this.multiplier);
+  }
 
   LasserColor get lasserColor {
     if (lensDataR == null && lensDataG == null && lensDataB == null) {

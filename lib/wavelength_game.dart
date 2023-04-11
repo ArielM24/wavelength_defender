@@ -30,13 +30,23 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
 
   @override
   FutureOr<void> onLoad() {
-    add(SingleLasserPoint(
+    // add(SingleLasserPoint(
+    //     size: Vector2.all(50),
+    //     position: Vector2(500, 150),
+    //     data: LasserData(
+    //         multiplier: 0.1,
+    //         maxDistance: 500,
+    //         chooserType: EnemyChooserType.farest,
+    //         lensDataB: LasserLensData(
+    //             lensClass: LasserClass.s, channel: LasserLensChannel.B))));
+    add(DoublePointerLasser(
         size: Vector2.all(50),
-        position: Vector2(500, 150),
+        position: Vector2(800, 150),
         data: LasserData(
             multiplier: 0.1,
-            maxDistance: 500,
+            maxDistance: 400,
             chooserType: EnemyChooserType.farest,
+            chooserType2: EnemyChooserType.nearest,
             lensDataB: LasserLensData(
                 lensClass: LasserClass.s, channel: LasserLensChannel.B))));
     // add(TriplePointerLasser(
