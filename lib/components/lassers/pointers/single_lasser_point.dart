@@ -4,51 +4,57 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:wavelength_defender/components/lassers/rays/static_lasser_ray.dart';
 import 'package:wavelength_defender/components/util/enemy_chooser.dart';
+import 'package:wavelength_defender/data/lasser_data.dart';
 import 'package:wavelength_defender/wavelength_game.dart';
 
 class SingleLasserPoint extends PositionComponent
     with HasGameRef<WavelengthGame> {
   bool isShooting = false;
   late StaticLasserRay ray;
-  double maxDistance = 400;
-  EnemyChooserType chooserType;
+  LasserData data;
 
   SingleLasserPoint(
-      {required super.position, required super.size, required this.chooserType})
+      {required super.position, required super.size, required this.data})
       : super(anchor: Anchor.center);
 
   @override
   FutureOr<void> onLoad() {
     final defaultPaint = Paint()
-      ..color = Colors.yellow
+      ..color = data.color
       ..style = PaintingStyle.fill;
     add(CircleComponent(paint: defaultPaint, radius: size.x / 2)
       ..renderShape = true);
-    gameRef.add(ray = StaticLasserRay(position: position));
+    gameRef.add(ray = StaticLasserRay(position: position, data: data));
 
     super.onLoad();
   }
 
   getTarget() {
     Vector2? target;
-    switch (chooserType) {
+    switch (data.chooserType) {
       case EnemyChooserType.nearest:
-        target = gameRef.enemies.nearestTo(position, maxDistance: maxDistance);
+        target =
+            gameRef.enemies.nearestTo(position, maxDistance: data.maxDistance);
         break;
       case EnemyChooserType.farest:
-        target = gameRef.enemies.farestTo(position, maxDistance: maxDistance);
+        target =
+            gameRef.enemies.farestTo(position, maxDistance: data.maxDistance);
         break;
       case EnemyChooserType.first:
-        target = gameRef.enemies.firstIn(position, maxDistance: maxDistance);
+        target =
+            gameRef.enemies.firstIn(position, maxDistance: data.maxDistance);
         break;
       case EnemyChooserType.last:
-        target = gameRef.enemies.lastIn(position, maxDistance: maxDistance);
+        target =
+            gameRef.enemies.lastIn(position, maxDistance: data.maxDistance);
         break;
       case EnemyChooserType.lowest:
-        target = gameRef.enemies.lowestLife(position, maxDistance: maxDistance);
+        target =
+            gameRef.enemies.lowestLife(position, maxDistance: data.maxDistance);
         break;
       case EnemyChooserType.higher:
-        target = gameRef.enemies.higherLife(position, maxDistance: maxDistance);
+        target =
+            gameRef.enemies.higherLife(position, maxDistance: data.maxDistance);
         break;
       default:
     }

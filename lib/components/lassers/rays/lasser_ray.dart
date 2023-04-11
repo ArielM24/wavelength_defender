@@ -4,31 +4,26 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:wavelength_defender/components/enemy/enemy_component.dart';
+import 'package:wavelength_defender/data/lasser_data.dart';
 
 class LasserRay extends PositionComponent with CollisionCallbacks, HasGameRef {
-  double speed = 10;
-  double damage;
   late final Vector2 velocity;
-  Color color;
   final Vector2 deltaPosition = Vector2.zero();
-  LasserRay(
-      {required super.position,
-      required super.angle,
-      this.damage = 10,
-      required this.color})
+  final LasserData data;
+  LasserRay({required super.position, required super.angle, required this.data})
       : super(size: Vector2(5, 60), anchor: Anchor.center);
 
   @override
   FutureOr<void> onLoad() {
     final defaulPaint = Paint()
-      ..color = color
+      ..color = data.color
       ..style = PaintingStyle.fill;
     add(RectangleHitbox()
       ..paint = defaulPaint
       ..renderShape = true);
     velocity = Vector2(0, -1)
       ..rotate(angle)
-      ..scale(speed);
+      ..scale(data.baseProjectileSpeed);
     return super.onLoad();
   }
 
@@ -37,7 +32,7 @@ class LasserRay extends PositionComponent with CollisionCallbacks, HasGameRef {
       Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
     if (other is EnemyComponent) {
-      other.takeHit(damage);
+      other.takeDamageFrom(data.lasserColor);
       removeFromParent();
     }
   }

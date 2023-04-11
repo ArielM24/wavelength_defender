@@ -10,7 +10,6 @@ import 'package:wavelength_defender/wavelength_game.dart';
 class CircularLasser extends PositionComponent
     with HasGameRef<WavelengthGame>, CollisionCallbacks {
   LasserData data;
-  double damage = 0.1;
   late CircleHitbox hitbox;
 
   bool isHitting = false;

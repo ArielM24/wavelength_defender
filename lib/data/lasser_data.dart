@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:wavelength_defender/components/util/enemy_chooser.dart';
 import 'package:wavelength_defender/data/lasser_classes.dart';
 import 'package:wavelength_defender/data/lasser_lens_data.dart';
@@ -8,11 +10,13 @@ class LasserData {
   LasserClass lasserClass;
   double fireRate;
   EnemyChooserType chooserType;
-  LasserLensData1? lensDataR;
-  LasserLensData1? lensDataG;
-  LasserLensData1? lensDataB;
+  LasserLensData? lensDataR;
+  LasserLensData? lensDataG;
+  LasserLensData? lensDataB;
   int damageLimit;
   double baseProjectileSpeed;
+  double maxDistance;
+  double multiplier;
 
   LasserData(
       {this.lasserClass = LasserClass.s,
@@ -20,6 +24,8 @@ class LasserData {
       this.lensDataG,
       this.lensDataB,
       this.fireRate = 1,
+      this.multiplier = 1,
+      this.maxDistance = 300,
       this.baseProjectileSpeed = 10,
       this.chooserType = EnemyChooserType.nearest})
       : damageLimit = lasserClass.randomValue;
@@ -55,6 +61,9 @@ class LasserData {
           dg: LasserClass.xDamage,
           db: LasserClass.xDamage);
     }
-    return LasserColor(r: r, g: g, b: b, dr: dr, dg: dg, db: db);
+    return LasserColor(
+        r: r, g: g, b: b, dr: dr, dg: dg, db: db, multiplier: multiplier);
   }
+
+  Color get color => lasserColor.color;
 }

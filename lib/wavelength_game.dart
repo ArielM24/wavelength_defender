@@ -30,37 +30,52 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
 
   @override
   FutureOr<void> onLoad() {
-    // add(SingleLasserPoint(
-    //     size: Vector2.all(50),
-    //     position: Vector2(500, 150),
-    //     chooserType: EnemyChooserType.farest));
+    add(SingleLasserPoint(
+        size: Vector2.all(50),
+        position: Vector2(500, 150),
+        data: LasserData(
+            multiplier: 0.1,
+            maxDistance: 500,
+            chooserType: EnemyChooserType.farest,
+            lensDataB: LasserLensData(
+                lensClass: LasserClass.s, channel: LasserLensChannel.B))));
     // add(TriplePointerLasser(
     //   size: Vector2.all(50),
     //   position: Vector2(800, 150),
     // ));
     // add(SingleChannelLasser(
-    //     position: Vector2(400, 500),
-    //     size: Vector2.all(50),
-    //     color: Colors.cyan,
-    //     chooserType: EnemyChooserType.first));
+    //   position: Vector2(400, 500),
+    //   size: Vector2.all(50),
+    //   data: LasserData(
+    //       multiplier: 3,
+    //       fireRate: 0.3,
+    //       baseProjectileSpeed: 30,
+    //       lensDataB: LasserLensData(
+    //           lensClass: LasserClass.a, channel: LasserLensChannel.B)),
+    // ));
     // add(DoubleChannelLasser(
     //     position: Vector2(600, 500),
     //     size: Vector2.all(50),
-    //     color: Colors.orange,
-    //     chooserType: EnemyChooserType.nearest));
+    //     data: LasserData(
+    //         multiplier: 2,
+    //         lensDataB: LasserLensData(
+    //             lensClass: LasserClass.s, channel: LasserLensChannel.B))));
     // add(TripleShootLasser(
     //     position: Vector2(800, 500),
     //     size: Vector2.all(50),
-    //     color: Colors.red,
-    //     chooserType: EnemyChooserType.lowest));
-    add(CircularLasser(
-        position: Vector2(1100, 250),
-        size: Vector2.all(100),
-        data: LasserData(
-          lasserClass: LasserClass.s,
-          lensDataB: LasserLensData1(
-              lensClass: LasserClass.s, channel: LasserLensChannel.B),
-        )));
+    //     data: LasserData(
+    //         fireRate: 0.3,
+    //         lensDataB: LasserLensData(
+    //             lensClass: LasserClass.s, channel: LasserLensChannel.B))));
+    // add(CircularLasser(
+    //     position: Vector2(1100, 250),
+    //     size: Vector2.all(100),
+    //     data: LasserData(
+    //       lasserClass: LasserClass.s,
+    //       multiplier: 0.01,
+    //       lensDataB: LasserLensData(
+    //           lensClass: LasserClass.s, channel: LasserLensChannel.B),
+    //     )));
 
     addAll([
       FpsTextComponent(

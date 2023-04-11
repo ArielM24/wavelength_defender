@@ -4,31 +4,34 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
 import 'package:wavelength_defender/components/util/enemy_chooser.dart';
+import 'package:wavelength_defender/data/lasser_data.dart';
 import 'package:wavelength_defender/wavelength_game.dart';
 
 abstract class LasserGun extends PositionComponent
     with HasGameRef<WavelengthGame> {
-  Color color;
+  LasserData data;
+
   late TimerComponent lasserCreator;
   bool isShooting = false;
   ShapeComponent shape;
   Vector2? tagret;
-  EnemyChooserType chooserType;
   LasserGun(
       {required super.position,
       required super.size,
-      required this.color,
       required this.shape,
-      required this.chooserType})
+      required this.data})
       : super(anchor: Anchor.center);
 
   @override
   FutureOr<void> onLoad() {
-    shape.paint = Paint()..color = color;
+    shape.paint = Paint()..color = data.color;
     shape.size = size;
     add(shape);
     add(lasserCreator = TimerComponent(
-        period: 1, repeat: true, autoStart: false, onTick: shootLasser));
+        period: data.fireRate,
+        repeat: true,
+        autoStart: false,
+        onTick: shootLasser));
   }
 
   startShootingLasser() {
@@ -44,7 +47,7 @@ abstract class LasserGun extends PositionComponent
 
   getTarget() {
     Vector2? target;
-    switch (chooserType) {
+    switch (data.chooserType) {
       case EnemyChooserType.nearest:
         target = gameRef.enemies.nearestTo(position);
         break;

@@ -5,10 +5,7 @@ import '../rays/lasser_ray.dart';
 
 class TripleShootLasser extends LasserGun {
   TripleShootLasser(
-      {required super.position,
-      required super.size,
-      required super.color,
-      required super.chooserType})
+      {required super.position, required super.size, required super.data})
       : super(shape: RectangleComponent());
 
   @override
@@ -16,14 +13,14 @@ class TripleShootLasser extends LasserGun {
     gameRef.add(LasserRay(
         position: Vector2(center.x + size.x / 2, center.y),
         angle: angle,
-        color: color));
+        data: data));
     gameRef.add(LasserRay(
         position: Vector2(center.x, center.y + size.y / 2),
         angle: angle,
-        color: color));
+        data: data));
     gameRef.add(LasserRay(
         position: Vector2(center.x - size.x / 2, center.y),
         angle: angle,
-        color: color));
+        data: data));
   }
 }

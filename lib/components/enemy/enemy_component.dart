@@ -59,8 +59,8 @@ class EnemyComponent extends PositionComponent
   }
 
   takeDamageFrom(LasserColor other) {
-    double damage = other.damageTo(color, multiplier: 0.1);
-    debugPrint("$damage");
+    double damage = other.damageTo(color);
+    debugPrint("$damage $other");
     life -= damage;
     if (life <= 0) {
       removeFromParent();
