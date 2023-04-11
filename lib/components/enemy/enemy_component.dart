@@ -4,6 +4,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:wavelength_defender/components/lassers/rays/static_lasser_ray.dart';
+import 'package:wavelength_defender/data/lasser_color.dart';
 import 'package:wavelength_defender/wavelength_game.dart';
 
 class EnemyComponent extends PositionComponent
@@ -13,7 +14,9 @@ class EnemyComponent extends PositionComponent
   double dx, dy;
   bool hasCrashed = false;
   late CircleHitbox hitbox;
-  EnemyComponent({this.life = 100, this.dx = 0, this.dy = 0})
+  LasserColor color;
+  EnemyComponent(
+      {this.life = 1024, this.dx = 0, this.dy = 0, required this.color})
       : super(
             position: Vector2(1200 + dx, 150 + dy),
             size: Vector2.all(50),
@@ -21,8 +24,9 @@ class EnemyComponent extends PositionComponent
   @override
   FutureOr<void> onLoad() {
     final defaultPaint = Paint()
-      ..color = Colors.red
-      ..style = PaintingStyle.stroke;
+      ..color = Color.fromARGB(155, color.r, color.g, color.b)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 3;
     add(hitbox = CircleHitbox(isSolid: true)
       ..collisionType = CollisionType.passive
       ..renderShape = true
@@ -54,12 +58,24 @@ class EnemyComponent extends PositionComponent
     }
   }
 
+  takeDamageFrom(LasserColor other) {
+    double damage = other.damageTo(color, multiplier: 0.1);
+    debugPrint("$damage");
+    life -= damage;
+    if (life <= 0) {
+      removeFromParent();
+      gameRef.increaseScore();
+      gameRef.enemies.remove(this);
+    }
+  }
+
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is StaticLasserRay) {
       final defaultPaint = Paint()
-        ..color = Colors.grey.withAlpha(150)
-        ..style = PaintingStyle.stroke;
+        ..color = Color.fromARGB(255, color.r, color.g, color.b)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3;
       hitbox.paint = defaultPaint;
     }
     super.onCollision(intersectionPoints, other);
@@ -69,8 +85,9 @@ class EnemyComponent extends PositionComponent
   void onCollisionEnd(PositionComponent other) {
     if (other is StaticLasserRay) {
       final defaultPaint = Paint()
-        ..color = Colors.red
-        ..style = PaintingStyle.stroke;
+        ..color = Color.fromARGB(155, color.r, color.g, color.b)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3;
       hitbox.paint = defaultPaint;
     }
     super.onCollisionEnd(other);
