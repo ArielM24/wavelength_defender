@@ -5,11 +5,13 @@ import 'package:wavelength_defender/components/road/road_cell.dart';
 mixin RoadWalker on PositionComponent {
   RoadDirection? get direction =>
       directions.isNotEmpty ? directions.first : null;
+  double currentSpeed = 0;
   List<RoadDirection> directions = [];
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is RoadCell) {
       directions.add(other.direction);
+      currentSpeed = other.roadSpeed;
     }
   }
 
@@ -23,16 +25,16 @@ mixin RoadWalker on PositionComponent {
   void update(double dt) {
     switch (direction) {
       case RoadDirection.top:
-        position.y--;
+        position.y -= currentSpeed;
         break;
       case RoadDirection.bottom:
-        position.y++;
+        position.y += currentSpeed;
         break;
       case RoadDirection.left:
-        position.x--;
+        position.x -= currentSpeed;
         break;
       case RoadDirection.right:
-        position.x++;
+        position.x += currentSpeed;
         break;
       default:
     }

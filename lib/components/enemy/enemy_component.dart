@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:wavelength_defender/components/enemy/enemy_object.dart';
 import 'package:wavelength_defender/components/lassers/rays/static_lasser_ray.dart';
 import 'package:wavelength_defender/components/road/road_cell.dart';
 import 'package:wavelength_defender/components/road/road_walker.dart';
@@ -50,12 +51,16 @@ class EnemyComponent extends PositionComponent
         position.y < 0 ||
         position.y > game.size.y;
     if (outOfScreen && !hasCrashed) {
-      hasCrashed = true;
-      gameRef.crashes++;
-      removeFromParent();
-      gameRef.enemies.remove(this);
+      crash();
     }
     super.update(dt);
+  }
+
+  crash() {
+    hasCrashed = true;
+    gameRef.crashes++;
+    removeFromParent();
+    gameRef.enemies.remove(this);
   }
 
   takeHit(double damage) {
@@ -69,7 +74,7 @@ class EnemyComponent extends PositionComponent
 
   takeDamageFrom(LasserColor other) {
     double damage = other.damageTo(color);
-    debugPrint("$damage $other");
+    //debugPrint("$damage $other");
     life -= damage;
     if (life <= 0) {
       removeFromParent();
@@ -86,6 +91,8 @@ class EnemyComponent extends PositionComponent
         ..style = PaintingStyle.stroke
         ..strokeWidth = 3;
       hitbox.paint = defaultPaint;
+    } else if (other is EnemyObject) {
+      crash();
     }
     super.onCollision(intersectionPoints, other);
   }

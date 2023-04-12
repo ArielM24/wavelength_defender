@@ -8,16 +8,20 @@ enum RoadDirection { left, right, top, bottom }
 
 class RoadCell extends RectangleComponent {
   RoadDirection direction;
+  double roadSpeed;
+  Color? color;
   RoadCell(
       {this.direction = RoadDirection.left,
       required super.position,
+      this.color,
+      this.roadSpeed = 1,
       required super.size})
       : super(anchor: Anchor.center);
 
   @override
   FutureOr<void> onLoad() {
     paint = Paint()
-      ..color = Colors.grey
+      ..color = color ?? Colors.grey
       ..style = PaintingStyle.stroke;
     final indicator = RectangleComponent(size: Vector2.all(size.x * 0.1));
     indicator.position = getIndicatorPosition();
