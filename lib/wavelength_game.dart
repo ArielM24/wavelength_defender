@@ -9,6 +9,7 @@ import 'package:wavelength_defender/components/lassers/lights/circular_lasser.da
 import 'package:wavelength_defender/components/lassers/pointers/double_lasser_pointer.dart';
 import 'package:wavelength_defender/components/lassers/pointers/single_lasser_point.dart';
 import 'package:wavelength_defender/components/lassers/pointers/triple_lasser_point.dart';
+import 'package:wavelength_defender/components/road/road_cell.dart';
 import 'package:wavelength_defender/components/util/enemy_chooser.dart';
 import 'package:wavelength_defender/data/lasser_classes.dart';
 import 'package:wavelength_defender/data/lasser_color.dart';
@@ -30,6 +31,41 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
 
   @override
   FutureOr<void> onLoad() {
+    add(RoadCell(
+        position: Vector2(1000, 200),
+        size: Vector2.all(70),
+        direction: RoadDirection.top));
+    add(RoadCell(
+        position: Vector2(1000, 130),
+        size: Vector2.all(70),
+        direction: RoadDirection.top));
+    add(RoadCell(
+        position: Vector2(1000, 60),
+        size: Vector2.all(70),
+        direction: RoadDirection.left));
+    add(RoadCell(
+        position: Vector2(930, 60),
+        size: Vector2.all(70),
+        direction: RoadDirection.left));
+    add(RoadCell(
+        position: Vector2(860, 60),
+        size: Vector2.all(70),
+        direction: RoadDirection.bottom));
+    add(RoadCell(
+        position: Vector2(860, 130),
+        size: Vector2.all(70),
+        direction: RoadDirection.left));
+    add(RoadCell(
+        position: Vector2(790, 130),
+        size: Vector2.all(70),
+        direction: RoadDirection.bottom));
+    add(RoadCell(
+        position: Vector2(790, 200),
+        size: Vector2.all(70),
+        direction: RoadDirection.right));
+
+    add(EnemyComponent(color: LasserColor.red, xp: 1020, yp: 200));
+
     // add(SingleLasserPoint(
     //     size: Vector2.all(50),
     //     position: Vector2(500, 150),
@@ -39,16 +75,16 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
     //         chooserType: EnemyChooserType.farest,
     //         lensDataB: LasserLensData(
     //             lensClass: LasserClass.s, channel: LasserLensChannel.B))));
-    add(DoublePointerLasser(
-        size: Vector2.all(50),
-        position: Vector2(800, 150),
-        data: LasserData(
-            multiplier: 0.1,
-            maxDistance: 400,
-            chooserType: EnemyChooserType.farest,
-            chooserType2: EnemyChooserType.nearest,
-            lensDataB: LasserLensData(
-                lensClass: LasserClass.s, channel: LasserLensChannel.B))));
+    // add(DoublePointerLasser(
+    //     size: Vector2.all(50),
+    //     position: Vector2(800, 150),
+    //     data: LasserData(
+    //         multiplier: 0.1,
+    //         maxDistance: 400,
+    //         chooserType: EnemyChooserType.farest,
+    //         chooserType2: EnemyChooserType.nearest,
+    //         lensDataB: LasserLensData(
+    //             lensClass: LasserClass.s, channel: LasserLensChannel.B))));
     // add(TriplePointerLasser(
     //   size: Vector2.all(50),
     //   position: Vector2(800, 150),
@@ -106,7 +142,7 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
     //     autoStart: true,
     //     repeat: true,
     //     onTick: () => generateEnemies(random.nextInt(6) + 6)));
-    generateEnemies(random.nextInt(6) + 6);
+    generateEnemies(random.nextInt(3) + 4);
 
     super.onLoad();
   }
@@ -132,6 +168,8 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
     for (int i = 0; i < n; i++) {
       newEnemies.add(EnemyComponent(
           color: LasserColor.red,
+          xp: 800,
+          yp: 100,
           dx: (random.nextDouble() + 0.5) * 200,
           dy: (random.nextDouble() + 0.5) * 100));
     }
