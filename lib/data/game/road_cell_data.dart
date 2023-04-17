@@ -43,7 +43,7 @@ class RoadCellData {
     return RoadCellData(
       direction: RoadDirection.values[direccionIndex],
       position: Vector2(x, y),
-      color: Color(colorValue),
+      color: json["color"] != null ? Color(colorValue) : null,
       size: json["size"] ?? 70,
     );
   }

@@ -1,0 +1,135 @@
+{
+    "roadCells": [
+        {
+            "direction": 2,
+            "roadSpeed": 1.0,
+            "color": null,
+            "size": 70.0,
+            "position_x": 1000.0,
+            "position_y": 200.0
+        },
+        {
+            "direction": 2,
+            "roadSpeed": 1.0,
+            "color": null,
+            "size": 70.0,
+            "position_x": 1000.0,
+            "position_y": 130.0
+        },
+        {
+            "direction": 0,
+            "roadSpeed": 1.0,
+            "color": null,
+            "size": 70.0,
+            "position_x": 1000.0,
+            "position_y": 60.0
+        },
+        {
+            "direction": 0,
+            "roadSpeed": 1.0,
+            "color": null,
+            "size": 70.0,
+            "position_x": 930.0,
+            "position_y": 60.0
+        },
+        {
+            "direction": 3,
+            "roadSpeed": 1.0,
+            "color": null,
+            "size": 70.0,
+            "position_x": 860.0,
+            "position_y": 60.0
+        },
+        {
+            "direction": 0,
+            "roadSpeed": 1.0,
+            "color": null,
+            "size": 70.0,
+            "position_x": 860.0,
+            "position_y": 130.0
+        },
+        {
+            "direction": 3,
+            "roadSpeed": 1.0,
+            "color": null,
+            "size": 70.0,
+            "position_x": 790.0,
+            "position_y": 130.0
+        },
+        {
+            "direction": 1,
+            "roadSpeed": 1.0,
+            "color": null,
+            "size": 70.0,
+            "position_x": 790.0,
+            "position_y": 200.0
+        }
+    ],
+    "spawners": [
+        {
+            "size": 70.0,
+            "position_x": 1000.0,
+            "position_y": 270.0,
+            "spawnDelay": 0.3,
+            "repeat": true,
+            "spawnLimit": 10,
+            "autostart": true,
+            "direction": 2,
+            "roadSpeed": 1.0,
+            "color": 4294198070
+        }
+    ],
+    "targets": [
+        {
+            "size": 70.0,
+            "position_x": 860.0,
+            "position_y": 200.0
+        }
+    ],
+    "lassers": [
+        {
+            "size": 50.0,
+            "position_x": 500.0,
+            "position_y": 150.0,
+            "damageLimit": 242,
+            "baseProjectileSpeed": 10.0,
+            "maxDistance": 500.0,
+            "multiplier": 0.1,
+            "type": 4,
+            "lasserClass": 2,
+            "fireRate": 1.0,
+            "chooserType": 1,
+            "chooserType2": null,
+            "chooserType3": null,
+            "lensDataR": null,
+            "lensDataG": null,
+            "lensDataB": {
+                "channelValue": 238,
+                "channel": 2,
+                "lensClass": 2
+            }
+        },
+        {
+            "size": 50.0,
+            "position_x": 400.0,
+            "position_y": 500.0,
+            "damageLimit": 249,
+            "baseProjectileSpeed": 30.0,
+            "maxDistance": 300.0,
+            "multiplier": 3.0,
+            "type": 0,
+            "lasserClass": 2,
+            "fireRate": 0.9,
+            "chooserType": 0,
+            "chooserType2": null,
+            "chooserType3": null,
+            "lensDataR": null,
+            "lensDataG": null,
+            "lensDataB": {
+                "channelValue": 229,
+                "channel": 2,
+                "lensClass": 3
+            }
+        }
+    ]
+}

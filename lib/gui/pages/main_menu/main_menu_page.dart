@@ -36,7 +36,13 @@ class MainMenuPage extends StatelessWidget {
                   onPressed: () {
                     context.read<GameBloc>().add(LoadDebugLevel());
                   },
-                  child: const Text("Debug Level"))
+                  child: const Text("Debug Level")),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () {
+                    context.read<GameBloc>().add(ContinueLevel());
+                  },
+                  child: const Text("Continue")),
             ],
           ),
         ),

@@ -11,7 +11,9 @@ class WaveLenghtDefenderApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => GameBloc(gameRepository: GameRepository()))
+        BlocProvider(
+            create: (_) => GameBloc(gameRepository: GameRepository())
+              ..add(LoadAssetLevels()))
       ],
       child: const MaterialApp(
           debugShowCheckedModeBanner: false, home: MainMenuPage()),

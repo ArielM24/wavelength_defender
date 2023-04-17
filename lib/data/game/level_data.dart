@@ -24,10 +24,14 @@ class LevelData {
   }
 
   factory LevelData.fromJson(Map<String, dynamic> json) {
-    List<Map<String, dynamic>> cells = (json["roadCells"] ?? []);
-    List<Map<String, dynamic>> spawners = (json["spawners"] ?? []);
-    List<Map<String, dynamic>> targets = (json["targets"] ?? []);
-    List<Map<String, dynamic>> lassers = (json["lassers"] ?? []);
+    List<Map<String, dynamic>> cells =
+        (json["roadCells"] ?? []).cast<Map<String, dynamic>>();
+    List<Map<String, dynamic>> spawners =
+        (json["spawners"] ?? []).cast<Map<String, dynamic>>();
+    List<Map<String, dynamic>> targets =
+        (json["targets"] ?? []).cast<Map<String, dynamic>>();
+    List<Map<String, dynamic>> lassers =
+        (json["lassers"] ?? []).cast<Map<String, dynamic>>();
     return LevelData(
       roadCells: cells
           .map((cell) => RoadCellData.fromJson(cell))
