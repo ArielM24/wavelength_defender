@@ -1,7 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:wavelength_defender/wavelength_game.dart';
+import 'package:wavelength_defender/gui/app/wavelenght_defender_app.dart';
 
 void main() async {
-  runApp(GameWidget(game: WavelengthGame()));
+  runApp(const WaveLenghtDefenderApp());
 }
