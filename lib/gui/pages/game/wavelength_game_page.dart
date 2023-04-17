@@ -11,6 +11,17 @@ class WavelengthGamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GameWidget(
       game: WavelengthGame(levelData: levelData),
+      overlayBuilderMap: {
+        "back": (context, game) => TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                "Back",
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+      },
       loadingBuilder: (_) => Center(
         child: Column(
           children: const [
