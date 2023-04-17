@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:wavelength_defender/gui/dialogs/game_pause_dialog.dart';
+import 'package:wavelength_defender/gui/game/overlays/confirmation_dialog_overlay.dart';
 
-showPauseDialog({required BuildContext context}) async {
-  await showDialog(
-      context: context, builder: (context) => const GamePauseDialog());
+Future<bool> showConfirmationdialog({required BuildContext context}) async {
+  return await showDialog<bool>(
+          context: context,
+          builder: (context) => const ConfirmationDialogOverlay()) ??
+      false;
 }

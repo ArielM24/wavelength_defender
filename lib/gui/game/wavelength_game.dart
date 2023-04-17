@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame_bloc/flame_bloc.dart';
-import 'package:flutter/foundation.dart';
 import 'package:wavelength_defender/data/game/level_data.dart';
 import 'package:wavelength_defender/domain/blocs/game/game_bloc.dart';
 import 'package:wavelength_defender/gui/game/components/enemy/enemy_component.dart';
@@ -27,7 +26,7 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
   WavelengthGame({required this.levelData, required this.gameBloc});
   @override
   void onMount() {
-    overlays.addAll(["back", "pause"]);
+    overlays.addAll(["pause"]);
     super.onMount();
   }
 
@@ -60,7 +59,9 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
             onNewState: (state) {
               if (state.status == GameStatus.paused) {
                 pauseEngine();
+                overlays.add("paused");
               } else if (state.status == GameStatus.running) {
+                overlays.remove("paused");
                 resumeEngine();
               }
             }),
