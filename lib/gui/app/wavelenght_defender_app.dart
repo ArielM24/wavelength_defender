@@ -9,12 +9,12 @@ class WaveLenghtDefenderApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MultiBlocProvider(providers: [
-        BlocProvider(
-            create: (context) => GameBloc(gameRepository: GameRepository()))
-      ], child: const MainMenuPage()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => GameBloc(gameRepository: GameRepository()))
+      ],
+      child: const MaterialApp(
+          debugShowCheckedModeBanner: false, home: MainMenuPage()),
     );
   }
 }

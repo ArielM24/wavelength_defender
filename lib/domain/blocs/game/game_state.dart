@@ -10,7 +10,10 @@ class GameState extends Equatable {
   @override
   List<Object?> get props => [status, level, hasError];
 
-  GameState copyWith({GameStatus? status, LevelData? level}) {
-    return GameState(status: status ?? this.status, level: level ?? this.level);
+  GameState copyWith({GameStatus? status, LevelData? level, bool? hasError}) {
+    return GameState(
+        status: status ?? this.status,
+        level: level ?? this.level,
+        hasError: hasError ?? this.hasError);
   }
 }

@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:flame_bloc/flame_bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:wavelength_defender/data/game/level_data.dart';
+import 'package:wavelength_defender/domain/blocs/game/game_bloc.dart';
 import 'package:wavelength_defender/gui/game/components/enemy/enemy_component.dart';
 import 'package:wavelength_defender/gui/game/components/enemy/enemy_target.dart';
 import 'package:wavelength_defender/gui/game/components/enemy/enemy_spawner.dart';
@@ -20,16 +23,17 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
   int spawned = 0;
 
   final LevelData levelData;
-  WavelengthGame({required this.levelData});
+  final GameBloc gameBloc;
+  WavelengthGame({required this.levelData, required this.gameBloc});
   @override
   void onMount() {
-    overlays.add("back");
+    overlays.addAll(["back", "pause"]);
     super.onMount();
   }
 
   @override
   void onRemove() {
-    overlays.remove("back");
+    overlays.clear();
     super.onRemove();
   }
 
@@ -49,6 +53,18 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
     }
 
     addAll([
+      FlameBlocProvider<GameBloc, GameState>.value(value: gameBloc, children: [
+        FlameBlocListener<GameBloc, GameState>(
+            listenWhen: (previousState, newState) => previousState != newState,
+            bloc: gameBloc,
+            onNewState: (state) {
+              if (state.status == GameStatus.paused) {
+                pauseEngine();
+              } else if (state.status == GameStatus.running) {
+                resumeEngine();
+              }
+            }),
+      ]),
       FpsTextComponent(
         position: size - Vector2(0, 100),
         anchor: Anchor.bottomRight,

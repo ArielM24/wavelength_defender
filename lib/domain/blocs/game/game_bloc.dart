@@ -7,9 +7,12 @@ part 'game_event.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {
   final GameRepository gameRepository;
+
   GameBloc({required this.gameRepository})
       : super(const GameState(status: GameStatus.inital)) {
     on<LoadDebugLevel>(_loadDebugLevel);
+    on<PauseButtonPressed>(_pauseButtonPressed);
+    on<ResumeButtonPressed>(_resumeButtonPressed);
   }
 
   _loadDebugLevel(LoadDebugLevel event, Emitter<GameState> emitter) {
@@ -17,5 +20,13 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     final debugLevelState = state.copyWith(
         level: gameRepository.debugLevel, status: GameStatus.loaded);
     emitter.call(debugLevelState);
+  }
+
+  _pauseButtonPressed(PauseButtonPressed event, Emitter<GameState> emitter) {
+    emitter.call(state.copyWith(status: GameStatus.paused));
+  }
+
+  _resumeButtonPressed(ResumeButtonPressed event, Emitter<GameState> emitter) {
+    emitter.call(state.copyWith(status: GameStatus.running));
   }
 }
