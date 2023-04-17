@@ -8,4 +8,21 @@ class EnemyTargetData {
 
   EnemyTarget toComponent() =>
       EnemyTarget(position: position, size: Vector2.all(size));
+
+  Map<String, dynamic> toJson() {
+    return {
+      "size": size,
+      "position_x": position.x,
+      "position_y": position.y,
+    };
+  }
+
+  factory EnemyTargetData.fromJson(Map<String, dynamic> json) {
+    double x = json["position_x"] ?? 0;
+    double y = json["position_y"] ?? 0;
+    return EnemyTargetData(
+      size: json["size"] ?? 70,
+      position: Vector2(x, y),
+    );
+  }
 }

@@ -23,4 +23,28 @@ class RoadCellData {
       position: position,
       direction: direction,
       size: Vector2.all(size));
+
+  Map<String, dynamic> toJson() {
+    return {
+      "direction": direction.index,
+      "roadSpeed": roadSpeed,
+      "color": color?.value,
+      "size": size,
+      "position_x": position.x,
+      "position_y": position.y,
+    };
+  }
+
+  factory RoadCellData.fromJson(Map<String, dynamic> json) {
+    int direccionIndex = json["direction"] ?? 0;
+    double x = json["position_x"] ?? 0;
+    double y = json["position_y"] ?? 0;
+    int colorValue = json["color"] ?? 0;
+    return RoadCellData(
+      direction: RoadDirection.values[direccionIndex],
+      position: Vector2(x, y),
+      color: Color(colorValue),
+      size: json["size"] ?? 70,
+    );
+  }
 }

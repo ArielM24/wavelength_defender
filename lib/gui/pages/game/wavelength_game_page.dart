@@ -14,6 +14,10 @@ class WavelengthGamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final json = levelData.toJson();
+    debugPrint("$json");
+    final data = LevelData.fromJson(json);
+
     return GameWidget(
       game: WavelengthGame(
           levelData: levelData, gameBloc: context.read<GameBloc>()),
