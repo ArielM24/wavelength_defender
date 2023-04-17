@@ -49,7 +49,7 @@ class EnemySpawner extends RoadCell with HasGameRef<WavelengthGame> {
         EnemyComponent(xp: position.x, yp: position.y, color: LasserColor.red);
     gameRef.add(enemy);
     gameRef.enemies.add(enemy);
-    gameRef.totalEnemies++;
+    gameRef.spawned++;
   }
 
   resume() {

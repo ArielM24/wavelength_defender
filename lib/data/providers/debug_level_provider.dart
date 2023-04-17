@@ -18,7 +18,7 @@ class DebugLeverProvider {
         EnemySpawnerData(
             position: Vector2(1000, 270),
             direction: RoadDirection.top,
-            spawnDelay: 1,
+            spawnDelay: 0.3,
             color: Colors.red,
             spawnLimit: 10)
       ],

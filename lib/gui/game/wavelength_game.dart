@@ -21,7 +21,7 @@ import 'package:wavelength_defender/gui/game/components/extensions/enemy_chooser
 import 'package:wavelength_defender/data/game/lasser_classes.dart';
 
 class WavelengthGame extends FlameGame with HasCollisionDetection {
-  late final TextComponent scoreText, crashesText, totalEnemiesText;
+  late final TextComponent scoreText, crashesText, spawnedText, enemiesText;
   List<EnemyComponent> enemies = [];
   List<EnemySpawner> spawners = [];
   List<RoadCell> roadCells = [];
@@ -30,7 +30,8 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
 
   int score = 0;
   int crashes = 0;
-  int totalEnemies = 0;
+  int spawned = 0;
+
   final LevelData levelData;
   WavelengthGame({required this.levelData});
 
@@ -62,8 +63,12 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
           position: size - Vector2(0, 50),
           anchor: Anchor.bottomRight,
           priority: 1),
-      totalEnemiesText = TextComponent(
+      spawnedText = TextComponent(
           position: size - Vector2(0, 25),
+          anchor: Anchor.bottomRight,
+          priority: 1),
+      enemiesText = TextComponent(
+          position: size - Vector2(0, 0),
           anchor: Anchor.bottomRight,
           priority: 1),
     ]);
@@ -75,7 +80,8 @@ class WavelengthGame extends FlameGame with HasCollisionDetection {
   void update(double dt) {
     scoreText.text = "score $score";
     crashesText.text = "crashes $crashes";
-    totalEnemiesText.text = "spawned $totalEnemies";
+    spawnedText.text = "spawned $spawned";
+    enemiesText.text = "enemies ${enemies.length}";
 
     if (score > 50 || crashes > 10) {
       pauseSpawners();

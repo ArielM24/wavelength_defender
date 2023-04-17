@@ -62,7 +62,9 @@ class EnemyComponent extends PositionComponent
     gameRef.enemies.remove(this);
   }
 
-  takeHit(double damage) {
+  takeDamageFrom(LasserColor other) {
+    double damage = other.damageTo(color);
+    //debugPrint("$damage $other");
     life -= damage;
     if (life <= 0) {
       removeFromParent();
@@ -70,17 +72,6 @@ class EnemyComponent extends PositionComponent
       if (removed) {
         gameRef.increaseScore();
       }
-    }
-  }
-
-  takeDamageFrom(LasserColor other) {
-    double damage = other.damageTo(color);
-    //debugPrint("$damage $other");
-    life -= damage;
-    if (life <= 0) {
-      removeFromParent();
-      gameRef.increaseScore();
-      gameRef.enemies.remove(this);
     }
   }
 
