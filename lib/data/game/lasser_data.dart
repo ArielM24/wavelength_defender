@@ -135,4 +135,62 @@ class LasserData {
         return TripleShootLasser(data: this);
     }
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "size": size,
+      "position_x": position.x,
+      "position_y": position.y,
+      "damageLimit": damageLimit,
+      "baseProjectileSpeed": baseProjectileSpeed,
+      "maxDistance": maxDistance,
+      "multiplier": multiplier,
+      "type": type.index,
+      "lasserClass": lasserClass.index,
+      "fireRate": fireRate,
+      "chooserType": chooserType.index,
+      "chooserType2": chooserType2?.index,
+      "chooserType3": chooserType3?.index,
+      "lensDataR": lensDataR?.toJson(),
+      "lensDataG": lensDataG?.toJson(),
+      "lensDataB": lensDataB?.toJson(),
+    };
+  }
+
+  factory LasserData.fromJson(Map<String, dynamic> json) {
+    int typeIndex = json["type"] ?? 0;
+    int classIndex = json["lasserClass"] ?? 0;
+    double x = json["position_x"] ?? 0;
+    double y = json["position_y"] ?? 0;
+    int chooserIndex = json["chooserType"] ?? 0;
+    int chooser2Index = json["chooserType2"] ?? 0;
+    int chooser3Index = json["chooserType3"] ?? 0;
+    return LasserData(
+      type: LasserType.values[typeIndex],
+      position: Vector2(x, y),
+      size: json["size"] ?? 50,
+      maxDistance: json["maxDistance"] ?? 300,
+      multiplier: json["multiplier"] ?? 1,
+      useDamageLimit: json["damageLimit"],
+      baseProjectileSpeed: json["baseProjectileSpeed"] ?? 10,
+      lasserClass: LasserClass.values[classIndex],
+      fireRate: json["fireRate"] ?? 1,
+      chooserType: EnemyChooserType.values[chooserIndex],
+      chooserType2: json["chooserType2"] != null
+          ? EnemyChooserType.values[chooser2Index]
+          : null,
+      chooserType3: json["chooserType3"] != null
+          ? EnemyChooserType.values[chooser3Index]
+          : null,
+      lensDataR: json["lensDataR"] != null
+          ? LasserLensData.fromJson(json["lensDataR"])
+          : null,
+      lensDataG: json["lensDataG"] != null
+          ? LasserLensData.fromJson(json["lensDataG"])
+          : null,
+      lensDataB: json["lensDataB"] != null
+          ? LasserLensData.fromJson(json["lensDataB"])
+          : null,
+    );
+  }
 }

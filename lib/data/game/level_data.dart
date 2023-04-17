@@ -19,6 +19,7 @@ class LevelData {
       "roadCells": roadCells.map((cell) => cell.toJson()).toList(),
       "spawners": spawners.map((spawner) => spawner.toJson()).toList(),
       "targets": targets.map((target) => target.toJson()).toList(),
+      "lassers": lassers.map((lasser) => lasser.toJson()).toList(),
     };
   }
 
@@ -26,6 +27,7 @@ class LevelData {
     List<Map<String, dynamic>> cells = (json["roadCells"] ?? []);
     List<Map<String, dynamic>> spawners = (json["spawners"] ?? []);
     List<Map<String, dynamic>> targets = (json["targets"] ?? []);
+    List<Map<String, dynamic>> lassers = (json["lassers"] ?? []);
     return LevelData(
       roadCells: cells
           .map((cell) => RoadCellData.fromJson(cell))
@@ -39,6 +41,10 @@ class LevelData {
           .map((target) => EnemyTargetData.fromJson(target))
           .toList()
           .cast<EnemyTargetData>(),
+      lassers: lassers
+          .map((lasser) => LasserData.fromJson(lasser))
+          .toList()
+          .cast<LasserData>(),
     );
   }
 }

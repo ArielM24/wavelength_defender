@@ -2,7 +2,6 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wavelength_defender/data/game/level_data.dart';
-import 'package:wavelength_defender/data/repositories/game_repository.dart';
 import 'package:wavelength_defender/domain/blocs/game/game_bloc.dart';
 import 'package:wavelength_defender/gui/game/overlays/pause_button_overlay.dart';
 import 'package:wavelength_defender/gui/game/overlays/pause_overlay.dart';
@@ -14,10 +13,6 @@ class WavelengthGamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final json = levelData.toJson();
-    debugPrint("$json");
-    final data = LevelData.fromJson(json);
-
     return GameWidget(
       game: WavelengthGame(
           levelData: levelData, gameBloc: context.read<GameBloc>()),

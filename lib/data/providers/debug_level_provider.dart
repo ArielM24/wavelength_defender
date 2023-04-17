@@ -30,7 +30,7 @@ class DebugLeverProvider {
             size: 50,
             position: Vector2(500, 150),
             chooserType: EnemyChooserType.farest,
-            lensDataB: LasserLensData(
+            lensDataB: LasserLensData.fromLensClass(
                 lensClass: LasserClass.s, channel: LasserLensChannel.B)),
         LasserData(
             type: LasserType.single,
@@ -39,7 +39,7 @@ class DebugLeverProvider {
             multiplier: 3,
             fireRate: 0.9,
             baseProjectileSpeed: 30,
-            lensDataB: LasserLensData(
+            lensDataB: LasserLensData.fromLensClass(
                 lensClass: LasserClass.a, channel: LasserLensChannel.B))
       ],
       roadCells: [
